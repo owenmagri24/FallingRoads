@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
+    private Animator m_Animator;
+    private bool m_IsHopping;
+
     void Start()
     {
-        
+        m_Animator = GetComponent<Animator>();
     }
 
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.W))
         {
+            //animations
+            m_Animator.SetTrigger("hop");
+
             float zDifference = 0;
             if(transform.position.z % 1 != 0) //OnGridSpace
             {
@@ -21,6 +27,7 @@ public class PlayerManager : MonoBehaviour
             transform.position = (transform.position + new Vector3(1,0,zDifference));
         }
     }
+
 
     private void OnCollisionEnter(Collision other) {
         StartCoroutine(KinematicOff(other, 1f));
@@ -32,7 +39,10 @@ public class PlayerManager : MonoBehaviour
 
         GameObject objectToFall = collidedObject.gameObject;
         yield return new WaitForSeconds(delayTime);
-        objectToFall.transform.GetComponent<Rigidbody>().isKinematic = false;
+        if(objectToFall != null)
+        {
+            objectToFall.transform.GetComponent<Rigidbody>().isKinematic = false;
+        }
         
     }
 }
