@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
+    [SerializeField] private TerrainGenerator terrainGenerator;
     private Animator m_Animator;
     private bool m_IsHopping;
 
@@ -24,18 +25,34 @@ public class PlayerManager : MonoBehaviour
             {
                 zDifference = Mathf.Round(transform.position.z) - transform.position.z;
             }
-            transform.position = (transform.position + new Vector3(1,0,zDifference));
+            MoveCharacter(new Vector3(1,0,zDifference));
+        }
+        else if(Input.GetKeyDown(KeyCode.A))
+        {
+            MoveCharacter(new Vector3(0,0,1));
+        }
+        else if(Input.GetKeyDown(KeyCode.D))
+        {
+            MoveCharacter(new Vector3(0,0,-1));
         }
     }
 
+    private void MoveCharacter(Vector3 difference)
+    {
+        m_Animator.SetTrigger("hop"); //animation
+        transform.position = (transform.position + difference);
 
+        terrainGenerator.SpawnTerrain(false, transform.position);
+    }
+
+    /*
     private void OnCollisionEnter(Collision other) {
         StartCoroutine(KinematicOff(other, 1f));
     }
 
     IEnumerator KinematicOff(Collision collidedObject, float delayTime)
     {   
-        //add falling animation
+        //add falling/shaking animation
 
         GameObject objectToFall = collidedObject.gameObject;
         yield return new WaitForSeconds(delayTime);
@@ -45,4 +62,5 @@ public class PlayerManager : MonoBehaviour
         }
         
     }
+    */
 }

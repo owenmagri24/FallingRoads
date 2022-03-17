@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641234, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -259,12 +259,75 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d294d21ce3a3f47dcbf4c0e86b5e62e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MaxTerrainCount: 20
+  minDistanceFromPlayer: 15
+  m_MaxTerrainCount: 10
   terrainDatas:
   - {fileID: 11400000, guid: 78a1c98b9f715497fa32a7682d554b2e, type: 2}
   - {fileID: 11400000, guid: 122c83d1eea984857ac9504f236bb503, type: 2}
   - {fileID: 11400000, guid: b8da5e54975c14c1e888862802cad09c, type: 2}
   m_TerrainHolder: {fileID: 1928432976}
+  m_CurrentPosition: {x: 0, y: 0, z: 0}
+--- !u!1001 &954907215
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 779556618, guid: d2d6d74a5ca4184479956cc9aced911c, type: 3}
+      propertyPath: m_Name
+      value: Tree
+      objectReference: {fileID: 0}
+    - target: {fileID: 1072019543659294013, guid: d2d6d74a5ca4184479956cc9aced911c, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1072019543659294013, guid: d2d6d74a5ca4184479956cc9aced911c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1072019543659294013, guid: d2d6d74a5ca4184479956cc9aced911c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1072019543659294013, guid: d2d6d74a5ca4184479956cc9aced911c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1072019543659294013, guid: d2d6d74a5ca4184479956cc9aced911c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1072019543659294013, guid: d2d6d74a5ca4184479956cc9aced911c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1072019543659294013, guid: d2d6d74a5ca4184479956cc9aced911c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1072019543659294013, guid: d2d6d74a5ca4184479956cc9aced911c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1072019543659294013, guid: d2d6d74a5ca4184479956cc9aced911c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1072019543659294013, guid: d2d6d74a5ca4184479956cc9aced911c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1072019543659294013, guid: d2d6d74a5ca4184479956cc9aced911c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1072019543659294014, guid: d2d6d74a5ca4184479956cc9aced911c, type: 3}
+      propertyPath: m_Name
+      value: GrassHolder
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d2d6d74a5ca4184479956cc9aced911c, type: 3}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -276,6 +339,7 @@ GameObject:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
+  - component: {fileID: 963194229}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -314,7 +378,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: -20
   far clip plane: 1000
   field of view: 60
   orthographic: 1
@@ -348,6 +412,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 24, y: 63, z: 0}
+--- !u!114 &963194229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02efe7b4c68cd14449500e408e2ff851, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Player: {fileID: 1131644469}
+  m_Offset: {x: 1, y: 1.38, z: 0}
+  m_Smoothness: 1
 --- !u!1001 &1019028705
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -355,6 +434,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7422970698404521598, guid: 384d7189e4c723549ad03367c45e8a30, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7422970698404521598, guid: 384d7189e4c723549ad03367c45e8a30, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7422970698404521598, guid: 384d7189e4c723549ad03367c45e8a30, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7422970698404521598, guid: 384d7189e4c723549ad03367c45e8a30, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.22
+      objectReference: {fileID: 0}
     - target: {fileID: 7422970700387787812, guid: 384d7189e4c723549ad03367c45e8a30, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -403,6 +498,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7422970700387788249, guid: 384d7189e4c723549ad03367c45e8a30, type: 3}
+      propertyPath: terrainGenerator
+      value: 
+      objectReference: {fileID: 758999828}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 384d7189e4c723549ad03367c45e8a30, type: 3}
 --- !u!1 &1131644469 stripped
