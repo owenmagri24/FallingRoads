@@ -32,7 +32,7 @@ public class TerrainGenerator : MonoBehaviour
             for (int i = 0; i < terrainInARow; i++)
             {
                 //spawn terrain with number in a row
-                GameObject terrain = Instantiate(terrainDatas[whichTerrain].terrain, m_CurrentPosition, Quaternion.identity, m_TerrainHolder);
+                GameObject terrain = Instantiate(terrainDatas[whichTerrain].terrainList[Random.Range(0,terrainDatas[whichTerrain].terrainList.Count)], m_CurrentPosition, Quaternion.identity, m_TerrainHolder);
 
 
                 m_CurrentTerrains.Add(terrain);

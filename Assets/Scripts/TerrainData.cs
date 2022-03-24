@@ -5,6 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Terrain Data", menuName = "Terrain Data")]
 public class TerrainData : ScriptableObject
 {
-    public GameObject terrain;
+    public List<GameObject> terrainList;
     public int maxInARow;
 }

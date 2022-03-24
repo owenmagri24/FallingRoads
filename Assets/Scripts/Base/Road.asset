@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb77208385d0c4de78e4b53e6224aabc, type: 3}
   m_Name: Road
   m_EditorClassIdentifier: 
-  terrain: {fileID: 7040492538502535943, guid: d8eccd690d52e3c469896b2225316fee, type: 3}
+  terrainList:
+  - {fileID: 7040492538502535943, guid: d8eccd690d52e3c469896b2225316fee, type: 3}
+  - {fileID: 2899135612290696330, guid: c6fdac1e4357243afa2b8f364147db0b, type: 3}
   maxInARow: 4

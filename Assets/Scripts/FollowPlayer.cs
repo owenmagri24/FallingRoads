@@ -13,7 +13,10 @@ public class FollowPlayer : MonoBehaviour
         
     }
     
-    private void Update() {
-        transform.position = Vector3.Lerp(transform.position, m_Player.transform.position + m_Offset, m_Smoothness);
+    private void Update(){
+        if(m_Player != null)
+        {
+            transform.position = Vector3.Lerp(transform.position, m_Player.transform.position + m_Offset, m_Smoothness);
+        }
     }
 }

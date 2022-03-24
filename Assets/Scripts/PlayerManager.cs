@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour
 {
     [SerializeField] private TerrainGenerator terrainGenerator;
+    [SerializeField] private Text m_ScoreText;
+    private int m_Score;
     private Animator m_Animator;
     private bool m_IsHopping;
 
@@ -13,8 +16,14 @@ public class PlayerManager : MonoBehaviour
         m_Animator = GetComponent<Animator>();
     }
 
+    private void FixedUpdate() {
+        m_Score++;
+    }
+
     void Update()
     {
+
+        m_ScoreText.text = "Score: "+ m_Score;
         if(Input.GetKeyDown(KeyCode.W))
         {
             //animations
