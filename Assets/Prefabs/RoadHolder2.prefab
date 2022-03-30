@@ -69,8 +69,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MovingObject: {fileID: 4073137608415454995, guid: 76f2d00671d6f405eb3cbaf6f0f452ee, type: 3}
   m_SpawnPos: {fileID: 5300480384493322850}
-  m_MinSpawnTime: 3
-  m_MaxSpawnTime: 5
+  m_MinSpawnTime: 5
+  m_MaxSpawnTime: 7
   m_IsRightSide: 1
 --- !u!1 &5300480384493322851
 GameObject:

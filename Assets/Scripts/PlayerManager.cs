@@ -6,8 +6,7 @@ using UnityEngine.UI;
 public class PlayerManager : MonoBehaviour
 {
     [SerializeField] private TerrainGenerator terrainGenerator;
-    [SerializeField] private Text m_ScoreText;
-    private int m_Score;
+    [SerializeField] private UIManager uIManager;
     private float m_PreviousX;
     private Animator m_Animator;
     private bool m_IsHopping;
@@ -20,43 +19,47 @@ public class PlayerManager : MonoBehaviour
 
     void Update()
     {
-        m_ScoreText.text = "Score: "+ m_Score;
+        
         if(Input.GetKeyDown(KeyCode.W))
         {
-            for (int i = 0; i < terrainGenerator.m_CurrentObstacles.Count; i++)
+            //checks if an obstacle is in forward tile
+            if(!terrainGenerator.m_CurrentObstacles.Contains(new Vector3(Mathf.Round(transform.position.x + 1),Mathf.Round(transform.position.y), Mathf.Round(transform.position.z))))
             {
-                if(terrainGenerator.m_CurrentObstacles[i].transform.position.x != gameObject.transform.position.x+1)
+                UpdateScore(); //updates score
+
+                float zDifference = 0;
+                if(transform.position.z % 1 != 0) //OnGridSpace
                 {
-                    Debug.Log(terrainGenerator.m_CurrentObstacles[i].transform.position.x); //0
-                    UpdateScore(); //updates score
-
-                    float zDifference = 0;
-                    if(transform.position.z % 1 != 0) //OnGridSpace
-                    {
-                        zDifference = Mathf.Round(transform.position.z) - transform.position.z;
-                    }
-                    MoveCharacter(new Vector3(1,0,zDifference));
+                    zDifference = Mathf.Round(transform.position.z) - transform.position.z;
                 }
-            }
-            
-
+                MoveCharacter(new Vector3(1,0,zDifference));
+                }
         }
         else if(Input.GetKeyDown(KeyCode.A))
         {
-            MoveCharacter(new Vector3(0,0,1));
+            if(!terrainGenerator.m_CurrentObstacles.Contains(new Vector3(Mathf.Round(transform.position.x),Mathf.Round(transform.position.y), Mathf.Round(transform.position.z + 1))))
+            {
+                MoveCharacter(new Vector3(0,0,1));
+            }
         }
         else if(Input.GetKeyDown(KeyCode.D))
         {
-            MoveCharacter(new Vector3(0,0,-1));
+            if(!terrainGenerator.m_CurrentObstacles.Contains(new Vector3(Mathf.Round(transform.position.x),Mathf.Round(transform.position.y), Mathf.Round(transform.position.z - 1))))
+            {
+                MoveCharacter(new Vector3(0,0,-1));
+            }
         }
         else if(Input.GetKeyDown(KeyCode.S))
         {
-            float zDifference = 0;
-            if(transform.position.z % 1 != 0) //OnGridSpace
+            if(!terrainGenerator.m_CurrentObstacles.Contains(new Vector3(Mathf.Round(transform.position.x -1),Mathf.Round(transform.position.y), Mathf.Round(transform.position.z))))
             {
-                zDifference = Mathf.Round(transform.position.z) - transform.position.z;
+                float zDifference = 0;
+                if(transform.position.z % 1 != 0) //OnGridSpace
+                {
+                    zDifference = Mathf.Round(transform.position.z) - transform.position.z;
+                }
+                MoveCharacter(new Vector3(-1, 0, zDifference));
             }
-            MoveCharacter(new Vector3(-1, 0, zDifference));
         }
     }
 
@@ -74,11 +77,16 @@ public class PlayerManager : MonoBehaviour
         if(transform.position.x > m_PreviousX)
         {
             m_PreviousX = transform.position.x;
-            m_Score++;
+            GameManager.instance.Score++;
         }
     }
 
     private void OnCollisionEnter(Collision other) {
+        if(GameManager.instance.TileToggle == true)
+        {
+            StartCoroutine(KinematicOff(other, 2f));
+        }
+
         if(other.transform.tag == "Log")
         {
             gameObject.transform.parent = other.transform;
@@ -87,10 +95,6 @@ public class PlayerManager : MonoBehaviour
             gameObject.transform.parent = null;
         }
     }
-    /*
-    private void OnCollisionEnter(Collision other) {
-        StartCoroutine(KinematicOff(other, 1f));
-    }
 
     IEnumerator KinematicOff(Collision collidedObject, float delayTime)
     {   
@@ -98,11 +102,10 @@ public class PlayerManager : MonoBehaviour
 
         GameObject objectToFall = collidedObject.gameObject;
         yield return new WaitForSeconds(delayTime);
-        if(objectToFall != null)
+        if(objectToFall != null && objectToFall.TryGetComponent<Rigidbody>(out Rigidbody rb))
         {
-            objectToFall.transform.GetComponent<Rigidbody>().isKinematic = false;
+            rb.isKinematic = false;
         }
-        
     }
-    */
+    
 }
