@@ -16,5 +16,14 @@ public class MovingObject : MonoBehaviour
     void Update()
     {
         transform.Translate(Vector3.forward * m_Speed * Time.deltaTime);
+        DestroyObject();
+    }
+
+    void DestroyObject()
+    {
+        if(gameObject.transform.position.z > 15 || gameObject.transform.position.z < -15)
+        {
+            Destroy(gameObject);
+        }
     }
 }
