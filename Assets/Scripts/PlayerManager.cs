@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class PlayerManager : MonoBehaviour
 {
     [SerializeField] private TerrainGenerator terrainGenerator;
-    [SerializeField] private UIManager uIManager;
     private float m_PreviousX;
     private Animator m_Animator;
     private bool m_IsHopping;
@@ -19,6 +18,7 @@ public class PlayerManager : MonoBehaviour
 
     void Update()
     {
+        KillPlayer();
         
         if(Input.GetKeyDown(KeyCode.W))
         {
@@ -79,6 +79,12 @@ public class PlayerManager : MonoBehaviour
             m_PreviousX = transform.position.x;
             GameManager.instance.Score++;
         }
+    }
+
+    private void KillPlayer()
+    {
+        if(gameObject.transform.position.y < -5f)
+            Destroy(gameObject);
     }
 
     private void OnCollisionEnter(Collision other) {
