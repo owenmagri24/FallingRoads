@@ -11,24 +11,22 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
-        m_ScoreText.text = "Score: "+ GameManager.instance.Score;
+        m_ScoreText.text = GameManager.instance.Score.ToString();
 
         if(playerManager == null)
         {
             //player dead
             m_DeathScreen.SetActive(true);
         }
+    }
 
-        if(m_DeathScreen.activeSelf)
-        {
-            if(Input.GetKeyDown(KeyCode.R))
-            {
-                GameManager.instance.PlayGame();
-            }
-            else if(Input.GetKeyDown(KeyCode.Q))
-            {
-                GameManager.instance.QuitGame();
-            }
-        }
+    public void OnClickRestart()
+    {
+        GameManager.instance.PlayGame();
+    }
+
+    public void OnClickQuit()
+    {
+        GameManager.instance.QuitGame();
     }
 }

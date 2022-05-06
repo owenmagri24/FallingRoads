@@ -10,6 +10,9 @@ public class PlayerManager : MonoBehaviour
     private Animator m_Animator;
     private bool m_IsHopping;
 
+    //Mobile Touch
+    [SerializeField] private SwipeManager swipeManager;
+
     void Start()
     {
         m_Animator = GetComponent<Animator>();
@@ -20,47 +23,7 @@ public class PlayerManager : MonoBehaviour
     {
         KillPlayer();
         
-        if(Input.GetKeyDown(KeyCode.W))
-        {
-            //checks if an obstacle is in forward tile
-            if(!terrainGenerator.m_CurrentObstacles.Contains(new Vector3(Mathf.Round(transform.position.x + 1),Mathf.Round(transform.position.y), Mathf.Round(transform.position.z))))
-            {
-                UpdateScore(); //updates score
-
-                float zDifference = 0;
-                if(transform.position.z % 1 != 0) //OnGridSpace
-                {
-                    zDifference = Mathf.Round(transform.position.z) - transform.position.z;
-                }
-                MoveCharacter(new Vector3(1,0,zDifference));
-                }
-        }
-        else if(Input.GetKeyDown(KeyCode.A))
-        {
-            if(!terrainGenerator.m_CurrentObstacles.Contains(new Vector3(Mathf.Round(transform.position.x),Mathf.Round(transform.position.y), Mathf.Round(transform.position.z + 1))))
-            {
-                MoveCharacter(new Vector3(0,0,1));
-            }
-        }
-        else if(Input.GetKeyDown(KeyCode.D))
-        {
-            if(!terrainGenerator.m_CurrentObstacles.Contains(new Vector3(Mathf.Round(transform.position.x),Mathf.Round(transform.position.y), Mathf.Round(transform.position.z - 1))))
-            {
-                MoveCharacter(new Vector3(0,0,-1));
-            }
-        }
-        else if(Input.GetKeyDown(KeyCode.S))
-        {
-            if(!terrainGenerator.m_CurrentObstacles.Contains(new Vector3(Mathf.Round(transform.position.x -1),Mathf.Round(transform.position.y), Mathf.Round(transform.position.z))))
-            {
-                float zDifference = 0;
-                if(transform.position.z % 1 != 0) //OnGridSpace
-                {
-                    zDifference = Mathf.Round(transform.position.z) - transform.position.z;
-                }
-                MoveCharacter(new Vector3(-1, 0, zDifference));
-            }
-        }
+        Swipe();
     }
 
     private void MoveCharacter(Vector3 difference)
@@ -114,4 +77,48 @@ public class PlayerManager : MonoBehaviour
         }
     }
     
+    private void Swipe()
+    {
+        if(swipeManager.SwipeLeft)
+        {
+            if(!terrainGenerator.m_CurrentObstacles.Contains(new Vector3(Mathf.Round(transform.position.x),Mathf.Round(transform.position.y), Mathf.Round(transform.position.z + 1))))
+            {
+                MoveCharacter(new Vector3(0,0,1));
+            }
+        }
+        if(swipeManager.SwipeRight)
+        {
+            if(!terrainGenerator.m_CurrentObstacles.Contains(new Vector3(Mathf.Round(transform.position.x),Mathf.Round(transform.position.y), Mathf.Round(transform.position.z - 1))))
+            {
+                MoveCharacter(new Vector3(0,0,-1));
+            }
+        }
+        if(swipeManager.SwipeUp)
+        {
+            //checks if an obstacle is in forward tile
+            if(!terrainGenerator.m_CurrentObstacles.Contains(new Vector3(Mathf.Round(transform.position.x + 1),Mathf.Round(transform.position.y), Mathf.Round(transform.position.z))))
+            {
+                UpdateScore(); //updates score
+
+                float zDifference = 0;
+                if(transform.position.z % 1 != 0) //OnGridSpace
+                {
+                    zDifference = Mathf.Round(transform.position.z) - transform.position.z;
+                }
+                MoveCharacter(new Vector3(1,0,zDifference));
+            }
+        }
+        if(swipeManager.SwipeDown)
+        {
+            if(!terrainGenerator.m_CurrentObstacles.Contains(new Vector3(Mathf.Round(transform.position.x -1),Mathf.Round(transform.position.y), Mathf.Round(transform.position.z))))
+            {
+                float zDifference = 0;
+                if(transform.position.z % 1 != 0) //OnGridSpace
+                {
+                    zDifference = Mathf.Round(transform.position.z) - transform.position.z;
+                }
+                MoveCharacter(new Vector3(-1, 0, zDifference));
+            }
+        }
+    }
 }

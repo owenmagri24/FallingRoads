@@ -21,7 +21,7 @@ public class MovingObject : MonoBehaviour
 
     void DestroyObject()
     {
-        if(gameObject.transform.position.z > 15 || gameObject.transform.position.z < -15)
+        if(gameObject.transform.position.z > 12 || gameObject.transform.position.z < -12)
         {
             Destroy(gameObject);
         }
